@@ -28,3 +28,33 @@ DELIMITER ;
 
 CALL `sp_ordenar_por_nombre` ('Nombre');
 
+DELIMITER $$
+
+CREATE PROCEDURE `sp_insert_nueva_ciudad` (IN p_char_insert char (50))
+
+BEGIN
+    SET @Expresion = 'select "nueva ciudad";' ;
+    
+    SET @data_min = lower(p_char_insert);
+	
+	IF @data_min != '' THEN
+		INSERT INTO cities
+        VALUES (@data_min, 9);
+        
+        SELECT *
+        FROM cities
+        WHERE ciudad LIKE @data_min;
+        
+	ELSE
+		SELECT 'Error: No se pudo crear el producto indicado' AS 'Error' FROM DUAL;
+        PREPARE nueva_ciudad FROM @Expresion;
+        EXECUTE nueva_ciudad;
+        DEALLOCATE PREPARE nueva_ciudad;
+    END IF;
+	
+END$$
+
+delimiter ;
+
+CALL `sp_insert_nueva_ciudad`('Jujuy');
+
