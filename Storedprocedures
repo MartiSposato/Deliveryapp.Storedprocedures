@@ -39,7 +39,7 @@ BEGIN
 	
 	IF @data_min != '' THEN
 		INSERT INTO cities
-        VALUES (@data_min, 9);
+        VALUES (@data_min, null);
         
         SELECT *
         FROM cities
@@ -55,6 +55,4 @@ BEGIN
 END$$
 
 delimiter ;
-
-CALL `sp_insert_nueva_ciudad`('Jujuy');
 
