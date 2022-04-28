@@ -1,0 +1,30 @@
+DELIMITER $$
+
+CREATE PROCEDURE `sp_ordenar_por_nombre` (IN nombre varchar(100))
+
+BEGIN
+
+IF nombre <> '' THEN
+SET @sql_order = nombre;
+ELSE
+SET  @sql_order = 'rider_id';
+END IF;
+
+SELECT @sql_order;
+
+SET @clausula = Concat('SELECT * from riders
+ORDER BY ', @sql_order);
+
+SELECT * from riders
+ORDER BY @sql_order;
+
+PREPARE ejecutar_query FROM @clausula;
+EXECUTE ejecutar_query;
+DEALLOCATE PREPARE ejecutar_query;
+
+END $$
+
+DELIMITER ;
+
+CALL `sp_ordenar_por_nombre` ('Nombre');
+
