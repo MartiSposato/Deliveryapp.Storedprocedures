@@ -29,11 +29,9 @@ DELIMITER ;
 CALL `sp_ordenar_por_nombre` ('Nombre');
 
 DELIMITER $$
-
-CREATE PROCEDURE `sp_insert_nueva_ciudad` (IN p_char_insert char (50))
-
+CREATE PROCEDURE `sp_insert_nueva_ciudad`(IN p_char_insert char (50))
 BEGIN
-    SET @Expresion = 'select "nueva ciudad";' ;
+    SET @Expresion = 'select "Error: No se pudo crear la ciudad indicada";' ;
     
     SET @data_min = lower(p_char_insert);
 	
@@ -53,5 +51,4 @@ BEGIN
     END IF;
 	
 END$$
-
-delimiter ;
+DELIMITER ;
