@@ -1,35 +1,37 @@
 DELIMITER $$
 
-CREATE PROCEDURE `sp_ordenar_por_nombre` (IN nombre varchar(100))
-
+CREATE PROCEDURE `sp_ordenar_por_nombre`(IN columna varchar(100))
+Reads sql data
 BEGIN
 
-IF nombre <> '' THEN
-SET @sql_order = nombre;
-ELSE
-SET  @sql_order = 'rider_id';
-END IF;
+IF columna <> “ THEN
 
-SELECT @sql_order;
-
-SET @clausula = Concat('SELECT * from riders
-ORDER BY ', @sql_order);
-
-SELECT * from riders
-ORDER BY @sql_order;
-
+SET @clausula = Concat(‘SELECT * FROM deliveryapp.riders ORDER BY ‘, columna);
+SET @clausula = ‘select “Error: Debe Ingresar una Columna Valida” AS “Error”;’ ;
 PREPARE ejecutar_query FROM @clausula;
+
 EXECUTE ejecutar_query;
+
 DEALLOCATE PREPARE ejecutar_query;
 
-END $$
+ELSE
 
-DELIMITER ;
+SET @clausula = ‘select “Error: Debe Ingresar una Columna Valida” AS “Error”;’ ;
 
-CALL `sp_ordenar_por_nombre` ('Nombre');
+PREPARE ejecutar_query FROM @clausula;
+
+EXECUTE ejecutar_query;
+
+DEALLOCATE PREPARE ejecutar_query;
+
+END IF;
+END;
+
+DELIMITER $$
 
 DELIMITER $$
 CREATE PROCEDURE `sp_insert_nueva_ciudad`(IN p_char_insert char (50))
+reads sql data
 BEGIN
     SET @Expresion = 'select "Error: No se pudo crear la ciudad indicada";' ;
     
@@ -39,15 +41,13 @@ BEGIN
 		INSERT INTO cities
         VALUES (@data_min, null);
         
-        SELECT *
-        FROM cities
-        WHERE ciudad LIKE @data_min;
-        
 	ELSE
-		SELECT 'Error: No se pudo crear el producto indicado' AS 'Error' FROM DUAL;
+		SELECT 'Error: No se pudo crear la ciudad indicada' AS 'Error' FROM DUAL;
+        
         PREPARE nueva_ciudad FROM @Expresion;
         EXECUTE nueva_ciudad;
         DEALLOCATE PREPARE nueva_ciudad;
+        
     END IF;
 	
 END$$
