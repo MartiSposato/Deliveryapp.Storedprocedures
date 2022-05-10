@@ -6,8 +6,8 @@ BEGIN
 
 IF columna <> “ THEN
 
-SET @clausula = Concat(‘SELECT * FROM deliveryapp.riders ORDER BY ‘, columna);
-SET @clausula = ‘select “Error: Debe Ingresar una Columna Valida” AS “Error”;’ ;
+SET @clausula = Concat('SELECT * FROM deliveryapp.riders ORDER BY ', columna);
+SET @clausula = 'select “Error: Debe Ingresar una Columna Valida” AS “Error”;' ;
 PREPARE ejecutar_query FROM @clausula;
 
 EXECUTE ejecutar_query;
@@ -16,7 +16,7 @@ DEALLOCATE PREPARE ejecutar_query;
 
 ELSE
 
-SET @clausula = ‘select “Error: Debe Ingresar una Columna Valida” AS “Error”;’ ;
+SET @clausula = 'select “Error: Debe Ingresar una Columna Valida” AS “Error”;' ;
 
 PREPARE ejecutar_query FROM @clausula;
 
@@ -25,9 +25,9 @@ EXECUTE ejecutar_query;
 DEALLOCATE PREPARE ejecutar_query;
 
 END IF;
-END;
+END $$
 
-DELIMITER $$
+DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `sp_insert_nueva_ciudad`(IN p_char_insert char (50))
